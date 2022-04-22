@@ -38,6 +38,9 @@ RUN { { curl -sSL $KUBECTL_URL | tee /dev/fd/3 | sha512sum >&4; } 3>&1 | tar -xz
 
 RUN git config --global user.email "deploytest@amazee.io" && git config --global user.name deploytest
 
+# download lagoon cli
+RUN DOWNLOAD_PATH=$(curl -sL "https://api.github.com/repos/uselagoon/lagoon-cli/releases/latest" | grep "browser_download_url" | cut -d \" -f 4 | grep "linux-arm64" | head -1) && wget -O /usr/local/bin/lagoon $DOWNLOAD_PATH && chmod +x /usr/local/bin/lagoon
+
 WORKDIR /ansible
 COPY . /ansible
 COPY hosts /etc/ansible/hosts
