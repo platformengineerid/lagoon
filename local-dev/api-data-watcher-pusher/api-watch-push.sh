@@ -72,4 +72,10 @@ watch_apidatafolder() {
     done
 }
 
-watch_apidatafolder
+
+send_graphql_query $clear_gql_file_path;
+
+# disable
+#watch_apidatafolder
+
+tail -f /dev/null
